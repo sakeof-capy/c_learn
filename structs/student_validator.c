@@ -11,15 +11,21 @@ typedef struct
 typedef struct 
 {
     Date date_of_birth;
-    int age;
     char sex;
-
 } StudentDate;
+
+int calculate_age(int birthYear) 
+{
+    time_t t = time(NULL);
+    struct tm tm = *localtime(&t);
+    int this_year = tm.tm_year + 1900;
+    return this_year - birthYear;
+}
 
 int checkCard(StudentDate card) 
 {
     int birth = card.date_of_birth.year;
-    int age = card.age;
+    int age = calculate_age(card.date_of_birth.year);
     char sex = card.sex;
 
     return birth < 1901 || age < 18 || age > 50 || sex == 'M' || sex == 'm';
@@ -28,7 +34,7 @@ int checkCard(StudentDate card)
 StudentDate feedBack(StudentDate card)
 {
     int birth = card.date_of_birth.year;
-    int age = card.age;
+    int age =  calculate_age(card.date_of_birth.year);
     if (checkCard(card))
     {
         printf("Sorry, not for you %d", age);
@@ -41,14 +47,11 @@ StudentDate feedBack(StudentDate card)
 
 int main()
 {
-    time_t t = time(NULL);
-    struct tm tm = *localtime(&t);
-    printf("now: %d\n", tm.tm_year + 1900);
+    
 
     int birthDay;
     int birthMonth;
     int birthYear;
-    int age;
     char sex;
 
     printf("\nYours sex (M if male and F if female) is ");
@@ -70,10 +73,9 @@ int main()
             .year = birthYear
         },
         .sex = sex,
-        .age = tm.tm_year + 1900 - birthYear
     };
 
-    if (birthYear < 1901 || birthDay > 31 || birthMonth > 12)
+    if (birthYear < 1901 || birthDay > 31 || birthMonth > 12 || birthDay < 1 || birthMonth < 1)
     {
         printf("Invalid date");
     }
@@ -88,16 +90,3 @@ int main()
 
     return 0;
 }
-/*
-
-1. Add gender to structure StudentCard; gender can have 2 valid values ("male", "female");
-
-2. If gender is not valid print "invalid gender";
-
-3. If gender is valid form a verdict based on age and gender;
-
-4. If input date is valid print calculated age and verdict;
-
-5. If input date is not valid print "invalid date";
-
-*/
