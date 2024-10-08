@@ -11,20 +11,40 @@ int* get_age(Student* card)
     return &(*card).age;
 }
 
+void set_age(Student* card, int age)
+{
+    if (age > 0 && age < 120)
+    {
+        card->age = age;    
+    } 
+    else 
+    {
+        printf("Invalid age provided.\n");
+    }
+}
+
 char* get_sex(Student* card)
 {
     return &(*card).sex;
 }
 
+void set_sex(Student* card, char sex)
+{
+    card->sex = sex;
+}
+
 int main()
 {
     Student card = {
-        .sex = 'a',
+        .sex = 'f',
         .age = 17
     };
 
     int* a = get_age(&card);
     char* b = get_sex(&card);
+
+    set_age(&card, 33);
+    set_sex(&card, 'm');
 
     printf("%d\n", *a);
     printf("%c\n", *b);
