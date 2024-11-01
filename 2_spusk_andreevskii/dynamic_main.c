@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "dynamic_arrays.h"
+#include "dynamic_head.h"
 
 int main()
 {
