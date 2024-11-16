@@ -2,6 +2,18 @@
 #include <stdlib.h>
 #include "dynamic_head.h"
 
+int users_integers_answer(int verdict, int number) 
+{
+    if (verdict == 0)
+    {
+        printf("number: %d\n", number);
+    }
+    else
+    {
+        printf("error\n");
+    }
+}
+
 int main()
 {
     int *integers_array;
@@ -19,12 +31,18 @@ int main()
     scanf("%d", &integers_array[i]);
     }
 
-    printf("sum_elements_of_array %d\n", sum_elements_of_array(integers_array, size));
+    Result result_sum = sum_elements_of_array(integers_array, size);
 
-    printf("minimal_elem_of_array: %d\n", find_minimal_elem_of_array(integers_array, size));
+    users_integers_answer(result_sum.verdict, result_sum.number);
 
-    printf("maximal_elem_of_array: %d\n", find_maximal_elem_of_array(integers_array, size));
+    Result result_min = find_minimal_elem_of_array(integers_array, size);
 
+    users_integers_answer(result_min.verdict, result_min.number);
+
+    Result result_max = find_maximal_elem_of_array(integers_array, size);
+
+    users_integers_answer(result_max.verdict, result_max.number);
+    
     reverse_array_of_integers(integers_array, size);
 
     free(integers_array);

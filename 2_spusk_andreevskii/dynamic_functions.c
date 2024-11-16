@@ -1,48 +1,73 @@
 #include <stdio.h>
+#include "dynamic_head.h"
 
-int sum_elements_of_array(int array[], int size)
+Result sum_elements_of_array(int array[], int size)
 {
+    Result res;
     if (size > 0)
     {
-        int sum_of_array_elements = 0;
+        res.number = 0;
         for (int i = 0; i < size; i++)
         {
-            sum_of_array_elements = sum_of_array_elements + array[i];
+            res.number = res.number + array[i];
+            res.verdict = 0;
         }
-        return 0 && sum_of_array_elements; 
+        return res; 
     }
     else
     {
-        return 1;
+        res.number = 0;
+        res.verdict = 1;
+        return res;
     }
-    
-    
 }
 
-int find_minimal_elem_of_array(int array[], int size)
+Result find_minimal_elem_of_array(int array[], int size)
 {
-        int minimal_elem_of_array = array[0];
+    Result res;
+    if (size > 0)
+    {
+        res.number = array[0];
         for (int i = 0; i < size; i++)
         {
-            if (array[i] < minimal_elem_of_array)
+            if (array[i] < res.number)
             {
-                minimal_elem_of_array = array[i];
+                res.number = array[i];
             }
         }
-        return (minimal_elem_of_array);
+        res.verdict = 0;
+        return res;
+    }
+    else
+    {
+        res.number = 0;
+        res.verdict = 1;
+        return res;
+    }
 }
 
-int find_maximal_elem_of_array(int array[], int size)
+Result find_maximal_elem_of_array(int array[], int size)
 {
-    int maximal_elem_of_array = array[0];
+    Result res;
+    if (size > 0)
+    {
+    res.number = array[0];
     for (int i = 0; i < size; i++)
     {
-        if (array[i] > maximal_elem_of_array)
+        if (array[i] > res.number)
         {
-            maximal_elem_of_array = array[i];
+            res.number = array[i];
         }
     }
-    return maximal_elem_of_array;
+    res.verdict = 0;
+    return res;
+    }
+    else
+    {
+        res.number = 0;
+        res.verdict = 1;
+        return res;
+    }
 }
 
 int reverse_array_of_integers(int array[], int size)
