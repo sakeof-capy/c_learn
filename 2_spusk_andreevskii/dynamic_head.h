@@ -6,6 +6,8 @@ typedef struct {
     int verdict;
 } Result;
 
+Result find_specific_integer_of_array(int array[], int size,  int spec_num);
+
 Result sum_elements_of_array(int array[], int size);
 
 Result find_minimal_elem_of_array(int array[], int size);
