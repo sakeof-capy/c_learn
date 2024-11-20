@@ -3,6 +3,7 @@
         "dynamic_arrays.h": "c",
         "stdlib.h": "c",
         "dynamic_head.h": "c",
-        "stdio.h": "c"
+        "stdio.h": "c",
+        "time.h": "c"
     }
 }
