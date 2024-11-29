@@ -2,10 +2,6 @@
 #include <stdlib.h>
 #include <time.h>
 
-int compare(const void *a, const void *b) {
-    return (*(int *)a - *(int *)b);
-}
-
 int findNumber(int *myArray, int arraySize, int number) {
     for (int i = 0; i < arraySize; i++) {
         if (myArray[i] == number) {
@@ -19,13 +15,17 @@ int main()
 {
     clock_t start_time, end_time;
     double elapsed_time;
+
+    int arraySize = 100000000;
    
-    int myArray[] = {1, 2, 10, 3, 44, 45, 17, 7, 4};
-    int arraySize = sizeof(myArray) / sizeof(myArray[0]);
+    int* myArray = (int*)malloc(sizeof(int) * arraySize);
     int number = 0;
     int findingResult; 
 
-    qsort(myArray, arraySize, sizeof(int), compare);
+    for (int i = 0; i < arraySize; i++)
+    {
+        myArray[i] = i + 1;
+    }
 
     printf("Enter your number: ");
     scanf("%d", &number);
@@ -48,7 +48,7 @@ int main()
 
     elapsed_time = (double)(end_time - start_time) / CLOCKS_PER_SEC;
 
-    printf("The function took %.50f seconds to execute.\n", elapsed_time);
+    printf("The function took %.15f seconds to execute.\n", elapsed_time);
 
     return 0;
 }
