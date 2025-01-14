@@ -1,0 +1,9 @@
+Each module of any project is conventionally split into three directories:
+
+    bin
+    include 
+    lib
+
+    bin - directory that contains all the root files that contain main function 
+    include - directory that contains all the header files (*.h)
+    lib - directory that contains all the implementation files (*.c)

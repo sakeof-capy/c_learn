@@ -4,6 +4,19 @@
         "stdlib.h": "c",
         "dynamic_head.h": "c",
         "stdio.h": "c",
-        "time.h": "c"
+        "time.h": "c",
+        "algorithm": "c",
+        "format": "c",
+        "array": "c",
+        "string_view": "c",
+        "initializer_list": "c",
+        "span": "c",
+        "functional": "c",
+        "variant": "c",
+        "charconv": "c",
+        "stddef.h": "c",
+        "array_utilities.h": "c",
+        "string": "c",
+        "search.h": "c"
     }
 }
