@@ -22,6 +22,8 @@
     Example
         - remove 2 from `[1, 2, 3, 4, 5]` => `[1, 3, 4, 5]` (order preserved)
         - remove 2 from `[1, 7, 2, -1]` => undefined behaviour because of unsorted array
+
+    Use binary search in last two functions.
     
 ### Comparison of the implemented functions.
     Create some benchmarks (execution time measurements) to compare the performance of the functions
