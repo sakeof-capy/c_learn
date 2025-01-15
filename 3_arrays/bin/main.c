@@ -1,13 +1,22 @@
 #include <stdio.h>
+#include <time.h>
 #include "../include/array_utilities.h"
 
 int main() 
 {
-    int arr[] = {1, 2, 3, 6};
+    int arr[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17};
     int arr_size = sizeof(arr)/sizeof(arr[0]);
-    int element = 1;
+    int element = 10;
 
-    int error_code = remove_element_from_array(arr, &arr_size, element);
+    // int error_code = remove_element_from_array(arr, &arr_size, element);
+    // int error_code = remove_element_from_array_preserve_order(arr, &arr_size, element);
+    // int error_code = remove_element_from_sorted_array(arr, &arr_size, element);
+    int error_code = remove_element_from_sorted_array_preserve_order(arr, &arr_size, element);
+
+    clock_t start = clock();
+    int resultIterative = remove_element_from_sorted_array(arr, &arr_size, element);
+    clock_t end = clock();
+    double timeIterative = (double)(end - start) / CLOCKS_PER_SEC;
 
     if (error_code == SUCCESS)
     {
@@ -32,10 +41,7 @@ int main()
         printf("Unknown error happened\n");
     }
 
-    printf("SUCCESS = %d\n", SUCCESS);
-    printf("SUCCESS = %d\n", ELEMENT_NOT_FOUND);
-    printf("SUCCESS = %d\n", NULL_POINTER_ERROR);
+    printf("Iterative Result: %d, Time: %.6f seconds\n", resultIterative, timeIterative);
 
-    
     return 0;
 }
