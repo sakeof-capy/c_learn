@@ -1,6 +1,17 @@
 #include <stddef.h>
 #include "../include/array_utilities.h"
 
+int find_index_of(int* arr, int* arr_size, int element, int* found_index)
+{
+    for(int i = 0; i < *arr_size; i++)
+    {
+        if (arr[i] == element)
+        {
+            *found_index = i;
+        }
+    }
+}
+
 int shift_elements_of_array_to_left(int* arr, int* arr_size, int index)
 {
     int new_index;
@@ -21,6 +32,7 @@ int element_in_arr_searching_and_code_assignment(int* arr, int* arr_size, int el
             (*arr_size)--;
             return SUCCESS;
         }
+   
     }
     return ELEMENT_NOT_FOUND;
 }
@@ -31,10 +43,21 @@ RemovalError remove_element_from_array(int* arr, int* arr_size, int element)
     {
         return NULL_POINTER_ERROR;
     }
-    int error_code;
-    error_code = element_in_arr_searching_and_code_assignment(arr, arr_size, element);
-    return error_code;
+    int found_index = -1;
+    find_index_of(arr, arr_size, element, &found_index);
+    if (found_index == -1)
+    {
+        return ELEMENT_NOT_FOUND;
+    }
+    arr[found_index] = arr[*arr_size -1];
+    (*arr_size)--;
+    return SUCCESS;
 }
+
+// factor out as the separate fuction the for loop searching for index 
+// name it index_of.
+// use it in first two functions to find the index of the wanted element 
+// then use this index either for swapping or shifting elements backward
 
 //  1.  Implement function `remove_element_from_array_preserve_order` 
 //      z would preserve the order of array's elements after removal.
@@ -45,9 +68,15 @@ RemovalError remove_element_from_array_preserve_order(int* arr, int* arr_size, i
     {
         return NULL_POINTER_ERROR;
     }
-    int error_code;
-    error_code = element_in_arr_searching_and_code_assignment(arr, arr_size, element);
-    return error_code;
+    int found_index = -1;
+    find_index_of(arr, arr_size, element, &found_index);
+    if (found_index == -1)
+    {
+        return ELEMENT_NOT_FOUND;
+    }
+    shift_elements_of_array_to_left(arr, arr_size, found_index);
+    (*arr_size)--;
+    return SUCCESS;
 }
 
 //  2.  Implement function `remove_element_from_sorted_array` 
