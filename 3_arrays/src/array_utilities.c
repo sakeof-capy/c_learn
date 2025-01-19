@@ -3,9 +3,9 @@
 
 #include "../include/array_utilities.h"
 
-int find_index_of(int* arr, int* arr_size, int element)
+int find_index_of(int* arr, size_t* arr_size, int element)
 {
-    int found_index = -1;
+    int found_index;
     for(int i = 0; i < *arr_size; i++)
     {
         if (arr[i] == element)
@@ -16,32 +16,27 @@ int find_index_of(int* arr, int* arr_size, int element)
     return found_index;
 }
 
-void shift_elements_of_array_to_left(int* arr, int* arr_size, int index)
+void shift_elements_of_array_to_left(int* arr, size_t* arr_size, int index)
 {
-    int new_index;
     for (int new_index = index; new_index < *arr_size - 1; new_index++) 
     {
         arr[new_index] = arr[new_index + 1];
     }
 }
 
-void chosen_element_of_array_replacement_with_last_one(int* arr, int* arr_size, int index)
-{
-    arr[index] = arr[*arr_size -1];
-}
-
-RemovalError remove_element_from_array(int* arr, int* arr_size, int element)
+RemovalError remove_element_from_array(int* arr, size_t* arr_size, int element)
 {
     if (arr == NULL || arr_size == NULL)
     {
         return NULL_POINTER_ERROR;
     }
-    int found_index = find_index_of(arr, arr_size, element);
+    int found_index = -1;
+    found_index = find_index_of(arr, arr_size, element);
     if (found_index == -1)
     {
         return ELEMENT_NOT_FOUND;
     }
-    chosen_element_of_array_replacement_with_last_one(arr, arr_size, found_index);
+    arr[found_index] = arr[*arr_size -1];
     (*arr_size)--;
     return SUCCESS;
 }
@@ -54,13 +49,14 @@ RemovalError remove_element_from_array(int* arr, int* arr_size, int element)
 //  1.  Implement function `remove_element_from_array_preserve_order` 
 //      z would preserve the order of array's elements after removal.
 
-RemovalError remove_element_from_array_preserve_order(int* arr, int* arr_size, int element)
+RemovalError remove_element_from_array_preserve_order(int* arr, size_t* arr_size, int element)
 {
     if (arr == NULL || arr_size == NULL)
     {
         return NULL_POINTER_ERROR;
     }
-    int found_index = find_index_of(arr, arr_size, element);
+    int found_index = -1;
+    found_index = find_index_of(arr, arr_size, element);
     if (found_index == -1)
     {
         return ELEMENT_NOT_FOUND;
@@ -74,7 +70,7 @@ RemovalError remove_element_from_array_preserve_order(int* arr, int* arr_size, i
 //      z would utilize the order of the elements 
 //      and perform a quick search and removal of the element.
 
-RemovalError remove_element_from_sorted_array(int* arr, int* arr_size, int element) 
+RemovalError remove_element_from_sorted_array(int* arr, size_t* arr_size, int element) 
 {
     int error_code = ELEMENT_NOT_FOUND;
     int low = 0, high = *arr_size - 1;
@@ -83,15 +79,9 @@ RemovalError remove_element_from_sorted_array(int* arr, int* arr_size, int eleme
         int mid = low + (high - low) / 2; 
         if (arr[mid] == element || abs(arr[low] - element) < abs(arr[low - 1] - element)) 
         {
-            int found_index = find_index_of(arr, arr_size, element);
-            if (found_index == -1)
-            {
-            return ELEMENT_NOT_FOUND;
-            }
-            chosen_element_of_array_replacement_with_last_one(arr, arr_size, found_index);
+            arr[mid] = arr[*arr_size -1];
             (*arr_size)--;
             return SUCCESS;
-            break;
         } 
         else if (arr[mid] < element) 
         {
@@ -109,7 +99,7 @@ RemovalError remove_element_from_sorted_array(int* arr, int* arr_size, int eleme
 //      z would do the same as previous functions does, 
 //      but it should guarantee order preservation.
 
-RemovalError remove_element_from_sorted_array_preserve_order(int* arr, int* arr_size, int element) 
+RemovalError remove_element_from_sorted_array_preserve_order(int* arr, size_t* arr_size, int element) 
 {
     int error_code = ELEMENT_NOT_FOUND;
     int low = 0, high = *arr_size - 1;
@@ -118,15 +108,9 @@ RemovalError remove_element_from_sorted_array_preserve_order(int* arr, int* arr_
         int mid = low + (high - low) / 2; 
         if (arr[mid] == element || abs(arr[low] - element) < abs(arr[low - 1] - element)) 
         {
-            int found_index = find_index_of(arr, arr_size, element);
-            if (found_index == -1)
-            {
-            return ELEMENT_NOT_FOUND;
-            }
-            shift_elements_of_array_to_left(arr, arr_size, found_index);
+            shift_elements_of_array_to_left(arr, arr_size, mid);
             (*arr_size)--;
             return SUCCESS;
-            break;
         } 
         else if (arr[mid] < element) 
         {

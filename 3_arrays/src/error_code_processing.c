@@ -2,7 +2,7 @@
 #include <stddef.h>
 #include "../include/array_utilities.h"
 
-void error_code_processing(int* arr, int element, int* arr_size, int error_code)
+void error_code_processing(int* arr, int element, size_t* arr_size, int error_code)
 {
     if (error_code == SUCCESS)
     {

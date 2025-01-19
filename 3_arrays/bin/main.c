@@ -1,15 +1,16 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <stddef.h>
 #include <sys/time.h>
 #include "../include/array_utilities.h"
 #include "../include/error_code_processing.h"
 
-void sosibo_pederastia
+void error_code_and_time_measurement_providing
 (
     int* arr, 
-    int* arr_size, 
+    size_t* arr_size, 
     int element, 
-    RemovalError (*array_element_remover) (int* , int* , int )
+    RemovalError (*array_element_remover) (int* , size_t* , int )
 )
 {
     int error_code;
@@ -27,22 +28,22 @@ void sosibo_pederastia
 void removal_benchmark
 (
     int* arr, 
-    int* arr_size,
-    RemovalError (*array_element_remover) (int* , int* , int )
+    size_t* arr_size,
+    RemovalError (*array_element_remover) (int* , size_t* , int )
 )
 {
-    sosibo_pederastia(arr, arr_size, arr[0], array_element_remover);
-    sosibo_pederastia(arr, arr_size, arr[*arr_size/2], array_element_remover);
-    sosibo_pederastia(arr, arr_size, arr[*arr_size-1], array_element_remover);
+    error_code_and_time_measurement_providing(arr, arr_size, arr[0], array_element_remover);
+    error_code_and_time_measurement_providing(arr, arr_size, arr[*arr_size/2], array_element_remover);
+    error_code_and_time_measurement_providing(arr, arr_size, arr[*arr_size-1], array_element_remover);
 }
 
 int main() 
 {
-    int arr_size;
+    size_t arr_size = 0;
     int element;
 
     printf("Enter the size of the array: ");
-    scanf("%d", &arr_size);
+    scanf("%zu", &arr_size);
 
     if (arr_size < 0)
     {
