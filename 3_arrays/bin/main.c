@@ -39,7 +39,6 @@ void removal_benchmark
 int main() 
 {
     int arr_size;
-    int error_code;
     int element;
 
     printf("Enter the size of the array: ");
@@ -61,11 +60,15 @@ int main()
         arr[i] = i + 1;  
     }
 
+    printf("\n");
     printf("remove_element_from_array: \n");
     removal_benchmark(arr, &arr_size, &remove_element_from_array);
     printf("\n");
     printf("remove_element_from_array_preserve_order: \n");
     removal_benchmark(arr, &arr_size, &remove_element_from_array_preserve_order);
+    printf("\n");
+    printf("remove_element_from_sorted_array: \n");
+    removal_benchmark(arr, &arr_size, &remove_element_from_sorted_array);
     printf("\n");
     printf("remove_element_from_sorted_array_preserve_order: \n");
     removal_benchmark(arr, &arr_size, &remove_element_from_sorted_array_preserve_order);
