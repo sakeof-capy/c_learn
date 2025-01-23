@@ -77,7 +77,7 @@ RemovalError remove_element_from_sorted_array(int* arr, size_t* arr_size, int el
     while (low <= high) 
     {
         int mid = low + (high - low) / 2; 
-        if (arr[mid] == element || abs(arr[low] - element) < abs(arr[low - 1] - element)) 
+        if (arr[mid] == element) 
         {
             arr[mid] = arr[*arr_size -1];
             (*arr_size)--;
@@ -106,9 +106,12 @@ RemovalError remove_element_from_sorted_array_preserve_order(int* arr, size_t* a
     while (low <= high) 
     {
         int mid = low + (high - low) / 2; 
-        if (arr[mid] == element || abs(arr[low] - element) < abs(arr[low - 1] - element)) 
+        if (arr[mid] == element) 
         {
-            shift_elements_of_array_to_left(arr, arr_size, mid);
+            for (int new_index = mid; new_index < *arr_size - 1; new_index++) 
+            {
+                arr[new_index] = arr[new_index + 1];
+            }
             (*arr_size)--;
             return SUCCESS;
         } 
