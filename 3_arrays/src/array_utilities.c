@@ -1,6 +1,5 @@
 #include <stdlib.h>
 #include <stddef.h>
-
 #include "../include/array_utilities.h"
 
 int find_index_of(int* arr, size_t* arr_size, int element)
@@ -70,18 +69,15 @@ RemovalError remove_element_from_array_preserve_order(int* arr, size_t* arr_size
 //      z would utilize the order of the elements 
 //      and perform a quick search and removal of the element.
 
-RemovalError remove_element_from_sorted_array(int* arr, size_t* arr_size, int element) 
+int find_index_binary_search(int* arr, size_t* arr_size, int element)
 {
-    int error_code = ELEMENT_NOT_FOUND;
     int low = 0, high = *arr_size - 1;
     while (low <= high) 
     {
         int mid = low + (high - low) / 2; 
         if (arr[mid] == element) 
         {
-            arr[mid] = arr[*arr_size -1];
-            (*arr_size)--;
-            return SUCCESS;
+            return mid;
         } 
         else if (arr[mid] < element) 
         {
@@ -92,7 +88,19 @@ RemovalError remove_element_from_sorted_array(int* arr, size_t* arr_size, int el
             high = mid - 1; 
         }
     }
-    return error_code;
+    return -1;
+}
+
+RemovalError remove_element_from_sorted_array(int* arr, size_t* arr_size, int element) 
+{
+    int found_index = find_index_binary_search(arr, arr_size, element);
+    if (found_index != -1)
+    {
+        arr[found_index] = arr[*arr_size -1];
+        (*arr_size)--;
+        return SUCCESS;
+    }
+    return ELEMENT_NOT_FOUND;
 }
 
 //  3.  Implement function `remove_element_from_sorted_array_preserve_order` 
@@ -101,28 +109,13 @@ RemovalError remove_element_from_sorted_array(int* arr, size_t* arr_size, int el
 
 RemovalError remove_element_from_sorted_array_preserve_order(int* arr, size_t* arr_size, int element) 
 {
-    int error_code = ELEMENT_NOT_FOUND;
-    int low = 0, high = *arr_size - 1;
-    while (low <= high) 
+    int found_index= find_index_binary_search(arr, arr_size, element);
+    if (found_index != -1)
     {
-        int mid = low + (high - low) / 2; 
-        if (arr[mid] == element) 
-        {
-            for (int new_index = mid; new_index < *arr_size - 1; new_index++) 
-            {
-                arr[new_index] = arr[new_index + 1];
-            }
-            (*arr_size)--;
-            return SUCCESS;
-        } 
-        else if (arr[mid] < element) 
-        {
-            low = mid + 1; 
-        } 
-        else 
-        {
-            high = mid - 1; 
-        }
+        shift_elements_of_array_to_left(arr, arr_size, found_index);
+        (*arr_size)--;
+        return SUCCESS;
     }
-    return error_code;
+    return ELEMENT_NOT_FOUND;
+;
 }

@@ -5,12 +5,13 @@
 #include "../include/array_utilities.h"
 #include "../include/error_code_processing.h"
 
-void error_code_and_time_measurement_providing
+void measure_time
 (
     int* arr, 
     size_t* arr_size, 
     int element, 
-    RemovalError (*array_element_remover) (int* , size_t* , int )
+    RemovalError (*array_element_remover) (int* , size_t* , int ),
+    const char* message
 )
 {
     int error_code;
@@ -22,7 +23,7 @@ void error_code_and_time_measurement_providing
     gettimeofday(&end, NULL);
     error_code_processing(arr, element, arr_size, error_code);
     elapsedTime = (end.tv_sec - start.tv_sec) + (end.tv_usec - start.tv_usec) / 1e6;
-    printf("Execution time: %.6f seconds\n", elapsedTime);
+    printf("%s %.6f seconds\n", message, elapsedTime);
 }
 
 void removal_benchmark
@@ -32,9 +33,9 @@ void removal_benchmark
     RemovalError (*array_element_remover) (int* , size_t* , int )
 )
 {
-    error_code_and_time_measurement_providing(arr, arr_size, arr[0], array_element_remover);
-    error_code_and_time_measurement_providing(arr, arr_size, arr[*arr_size/2], array_element_remover);
-    error_code_and_time_measurement_providing(arr, arr_size, arr[*arr_size-1], array_element_remover);
+    measure_time(arr, arr_size, arr[*arr_size/2], array_element_remover, "- Removing element from beggining:");
+    measure_time(arr, arr_size, arr[*arr_size-1], array_element_remover, "- Removing element from middle:   ");
+    measure_time(arr, arr_size, arr[0], array_element_remover,           "- Removing element from end:      ");
 }
 
 int main() 
@@ -62,17 +63,21 @@ int main()
     }
 
     printf("\n");
-    printf("remove_element_from_array: \n");
-    removal_benchmark(arr, &arr_size, &remove_element_from_array);
+    printf("remove_element_from_array_preserve_order: ");
     printf("\n");
-    printf("remove_element_from_array_preserve_order: \n");
     removal_benchmark(arr, &arr_size, &remove_element_from_array_preserve_order);
+
+    printf("remove_element_from_sorted_array_preserve_order: ");
     printf("\n");
-    printf("remove_element_from_sorted_array: \n");
-    removal_benchmark(arr, &arr_size, &remove_element_from_sorted_array);
-    printf("\n");
-    printf("remove_element_from_sorted_array_preserve_order: \n");
     removal_benchmark(arr, &arr_size, &remove_element_from_sorted_array_preserve_order);
+
+    printf("remove_element_from_sorted_array: ");
+    printf("\n");
+    removal_benchmark(arr, &arr_size, &remove_element_from_sorted_array);
+
+    printf("remove_element_from_array: ");
+    printf("\n");
+    removal_benchmark(arr, &arr_size, &remove_element_from_array);
 
     return 0;
 }
