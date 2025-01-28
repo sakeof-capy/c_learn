@@ -1,17 +1,18 @@
 #include <stdio.h>
 #include <stddef.h>
 #include "../include/array_utilities.h"
+#include "../include/array_structure.h"
 
-void error_code_processing(int* arr, int element, size_t* arr_size, int error_code)
+void error_code_processing(ArrayStructure* array, int element, int error_code)
 {
     if (error_code == SUCCESS)
     {
-        if (*arr_size < 20)
+        if ((*array).arr_size < 20)
         {
             printf("New array: ");
-            for (int i = 0; i < *arr_size; i++)
+            for (int i = 0; i < (*array).arr_size; i++)
             {
-                printf("%d ", arr[i]);
+                printf("%d ", (*array).arr[i]);
             }
             printf("\n");
         }
