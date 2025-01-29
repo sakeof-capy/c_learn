@@ -21,7 +21,7 @@ void measure_time
     gettimeofday(&start, NULL);
     error_code = array_element_remover(arr, arr_size, element);
     gettimeofday(&end, NULL);
-    error_code_processing(arr, element, arr_size, error_code);
+    error_code_processing(arr, arr_size, error_code);
     elapsedTime = (end.tv_sec - start.tv_sec) + (end.tv_usec - start.tv_usec) / 1e6;
     printf("%s %.6f seconds\n", message, elapsedTime);
 }
@@ -41,7 +41,6 @@ void removal_benchmark
 int main() 
 {
     size_t arr_size = 0;
-    int element;
 
     printf("Enter the size of the array: ");
     scanf("%zu", &arr_size);
@@ -58,7 +57,7 @@ int main()
         return 1; 
     }
 
-    for (int i = 0; i < arr_size; i++) {
+    for (size_t i = 0; i < arr_size; i++) {
         arr[i] = i + 1;  
     }
 

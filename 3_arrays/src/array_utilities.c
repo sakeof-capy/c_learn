@@ -5,7 +5,7 @@
 int find_index_of(int* arr, size_t* arr_size, int element)
 {
     int found_index;
-    for(int i = 0; i < *arr_size; i++)
+    for(size_t i = 0; i < *arr_size; i++)
     {
         if (arr[i] == element)
         {
@@ -17,7 +17,7 @@ int find_index_of(int* arr, size_t* arr_size, int element)
 
 void shift_elements_of_array_to_left(int* arr, size_t* arr_size, int index)
 {
-    for (int new_index = index; new_index < *arr_size - 1; new_index++) 
+    for (size_t new_index = index; new_index < *arr_size - 1; new_index++) 
     {
         arr[new_index] = arr[new_index + 1];
     }
