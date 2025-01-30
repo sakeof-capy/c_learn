@@ -29,6 +29,10 @@ RemovalError remove_element_from_array(int* arr, size_t* arr_size, int element)
     {
         return NULL_POINTER_ERROR;
     }
+    if (*arr_size < 1)
+    {
+        return TOO_SHORT_ARRAY;
+    }
     int found_index = -1;
     found_index = find_index_of(arr, arr_size, element);
     if (found_index == -1)
@@ -53,6 +57,10 @@ RemovalError remove_element_from_array_preserve_order(int* arr, size_t* arr_size
     if (arr == NULL || arr_size == NULL)
     {
         return NULL_POINTER_ERROR;
+    }
+    if (*arr_size < 1)
+    {
+        return TOO_SHORT_ARRAY;
     }
     int found_index = -1;
     found_index = find_index_of(arr, arr_size, element);
@@ -93,6 +101,14 @@ int find_index_binary_search(int* arr, size_t* arr_size, int element)
 
 RemovalError remove_element_from_sorted_array(int* arr, size_t* arr_size, int element) 
 {
+    if (arr == NULL || arr_size == NULL)
+    {
+        return NULL_POINTER_ERROR;
+    }
+    if (*arr_size < 1)
+    {
+        return TOO_SHORT_ARRAY;
+    }
     int found_index = find_index_binary_search(arr, arr_size, element);
     if (found_index != -1)
     {
@@ -109,6 +125,14 @@ RemovalError remove_element_from_sorted_array(int* arr, size_t* arr_size, int el
 
 RemovalError remove_element_from_sorted_array_preserve_order(int* arr, size_t* arr_size, int element) 
 {
+    if (arr == NULL || arr_size == NULL)
+    {
+        return NULL_POINTER_ERROR;
+    }
+    if (*arr_size < 1)
+    {
+        return TOO_SHORT_ARRAY;
+    }
     int found_index= find_index_binary_search(arr, arr_size, element);
     if (found_index != -1)
     {

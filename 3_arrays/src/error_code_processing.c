@@ -24,6 +24,10 @@ void error_code_processing(int* arr, size_t* arr_size, int error_code)
     {
         printf("NULL\n");
     }
+    else if (error_code == TOO_SHORT_ARRAY)
+    {
+        printf("Array is drained of elements\n");
+    }
     else 
     {
         printf("Unknown error happened\n");

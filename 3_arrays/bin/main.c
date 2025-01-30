@@ -45,6 +45,12 @@ int main()
     printf("Enter the size of the array: ");
     scanf("%zu", &arr_size);
 
+    if (arr_size == 0 || arr_size > 1000000000)
+    {
+        printf("Error: invalid array size: %zu\n", arr_size);
+        return -1;
+    }
+
     int *arr = (int *)malloc(arr_size * sizeof(int));
     if (arr == NULL) {
         printf("Memory allocation failed\n");
