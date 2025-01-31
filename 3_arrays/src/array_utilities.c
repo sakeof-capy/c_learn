@@ -1,13 +1,18 @@
 #include <stdlib.h>
 #include <stddef.h>
 #include "../include/array_utilities.h"
+#include "../include/array_structure.h"
 
-int find_index_of(int* arr, size_t* arr_size, int element)
+int find_index_of
+(    
+    ArrayStructure *array,
+    int element
+)
 {
     int found_index;
-    for(int i = 0; i < *arr_size; i++)
+    for(int i = 0; i < (*array).arr_size; i++)
     {
-        if (arr[i] == element)
+        if ((*array).arr[i] == element)
         {
             found_index = i;
         }
@@ -15,28 +20,36 @@ int find_index_of(int* arr, size_t* arr_size, int element)
     return found_index;
 }
 
-void shift_elements_of_array_to_left(int* arr, size_t* arr_size, int index)
+void shift_elements_of_array_to_left
+(
+    ArrayStructure *array,
+    int index
+)
 {
-    for (int new_index = index; new_index < *arr_size - 1; new_index++) 
+    for (int new_index = index; new_index < (*array).arr_size - 1; new_index++) 
     {
-        arr[new_index] = arr[new_index + 1];
+        (*array).arr[new_index] = (*array).arr[new_index + 1];
     }
 }
 
-RemovalError remove_element_from_array(int* arr, size_t* arr_size, int element)
+RemovalError remove_element_from_array
+(
+    ArrayStructure* array,
+    int element
+)
 {
-    if (arr == NULL || arr_size == NULL)
+    if (array == NULL)
     {
         return NULL_POINTER_ERROR;
     }
     int found_index = -1;
-    found_index = find_index_of(arr, arr_size, element);
+    found_index = find_index_of(array, element);
     if (found_index == -1)
     {
         return ELEMENT_NOT_FOUND;
     }
-    arr[found_index] = arr[*arr_size -1];
-    (*arr_size)--;
+    (*array).arr[found_index] = (*array).arr[(*array).arr_size -1];
+    (*array).arr_size--;
     return SUCCESS;
 }
 
@@ -48,20 +61,24 @@ RemovalError remove_element_from_array(int* arr, size_t* arr_size, int element)
 //  1.  Implement function `remove_element_from_array_preserve_order` 
 //      z would preserve the order of array's elements after removal.
 
-RemovalError remove_element_from_array_preserve_order(int* arr, size_t* arr_size, int element)
+RemovalError remove_element_from_array_preserve_order
+(
+    ArrayStructure* array,
+    int element
+)
 {
-    if (arr == NULL || arr_size == NULL)
+    if (array == NULL)
     {
         return NULL_POINTER_ERROR;
     }
     int found_index = -1;
-    found_index = find_index_of(arr, arr_size, element);
+    found_index = find_index_of(array, element);
     if (found_index == -1)
     {
         return ELEMENT_NOT_FOUND;
     }
-    shift_elements_of_array_to_left(arr, arr_size, found_index);
-    (*arr_size)--;
+    shift_elements_of_array_to_left(array, found_index);
+    (*array).arr_size--;
     return SUCCESS;
 }
 
@@ -69,17 +86,25 @@ RemovalError remove_element_from_array_preserve_order(int* arr, size_t* arr_size
 //      z would utilize the order of the elements 
 //      and perform a quick search and removal of the element.
 
-int find_index_binary_search(int* arr, size_t* arr_size, int element)
+int find_index_binary_search
+(
+    ArrayStructure* array,
+    int element
+)
 {
-    int low = 0, high = *arr_size - 1;
+    if (array == NULL)
+    {
+        return NULL_POINTER_ERROR;
+    }
+    int low = 0, high = (*array).arr_size - 1;
     while (low <= high) 
     {
         int mid = low + (high - low) / 2; 
-        if (arr[mid] == element) 
+        if ((*array).arr[mid] == element) 
         {
             return mid;
         } 
-        else if (arr[mid] < element) 
+        else if ((*array).arr[mid] < element) 
         {
             low = mid + 1; 
         } 
@@ -91,13 +116,21 @@ int find_index_binary_search(int* arr, size_t* arr_size, int element)
     return -1;
 }
 
-RemovalError remove_element_from_sorted_array(int* arr, size_t* arr_size, int element) 
+RemovalError remove_element_from_sorted_array
+(
+    ArrayStructure* array,
+    int element
+)
 {
-    int found_index = find_index_binary_search(arr, arr_size, element);
+    if (array == NULL)
+    {
+        return NULL_POINTER_ERROR;
+    }
+    int found_index = find_index_binary_search(array, element);
     if (found_index != -1)
     {
-        arr[found_index] = arr[*arr_size -1];
-        (*arr_size)--;
+        (*array).arr[found_index] = (*array).arr[(*array).arr_size -1];
+        (*array).arr_size--;
         return SUCCESS;
     }
     return ELEMENT_NOT_FOUND;
@@ -107,15 +140,22 @@ RemovalError remove_element_from_sorted_array(int* arr, size_t* arr_size, int el
 //      z would do the same as previous functions does, 
 //      but it should guarantee order preservation.
 
-RemovalError remove_element_from_sorted_array_preserve_order(int* arr, size_t* arr_size, int element) 
+RemovalError remove_element_from_sorted_array_preserve_order
+(
+    ArrayStructure* array,
+    int element
+) 
 {
-    int found_index= find_index_binary_search(arr, arr_size, element);
+    if (array == NULL)
+    {
+        return NULL_POINTER_ERROR;
+    }
+    int found_index= find_index_binary_search(array, element);
     if (found_index != -1)
     {
-        shift_elements_of_array_to_left(arr, arr_size, found_index);
-        (*arr_size)--;
+        shift_elements_of_array_to_left(array, found_index);
+        (*array).arr_size--;
         return SUCCESS;
     }
     return ELEMENT_NOT_FOUND;
-;
 }
