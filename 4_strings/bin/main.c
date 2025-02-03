@@ -1,41 +1,10 @@
 #include <stdio.h>
-
-// void print_string(char string[], int arr_size)
-void print_string(char *string, int arr_size)
-{
-    for (int i = 0; i < arr_size; i++)
-    {
-        putchar(string[i]);
-    }
-}
-
-int evaluate_null_terminated_string_size(char *string)
-{
-    int size = 0;
-    for (int i = 0; ;i++)
-    {
-        if (string[i] == '\0')
-        {
-            break;
-        } 
-        else
-        {
-            size++;
-        }
-    }
-    return size;
-}
-
-void print_null_terminated_string(char *string)
-{
-    int size = evaluate_null_terminated_string_size(string);
-
-    print_string(string, size);
-}
+#include "../include/strings_utilities.h"
 
 int main()
 {
-    printf("Hello, arrays!\n");
+    char new_string[] = "abrakadabra";
+    char string_to_revert[] = "abbra";
 
     // char symbol = 's';
     // printf("%c\n", symbol);
@@ -60,11 +29,16 @@ int main()
 
     print_null_terminated_string(empty_string);
 
-    // "abrakadabra"
-
-    char new_string[] = "abrakadabra";
-
     print_null_terminated_string(new_string);
+    printf("\n");
+
+    //////////////////////////////////////////////
+
+    print_string_reversed(string_to_revert);
+    printf("\n");
+
+    revert_string(string_to_revert);
+    printf("%s\n", string_to_revert);
 
     return 0;
 }
