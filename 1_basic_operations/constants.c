@@ -48,7 +48,6 @@ void array_elements_decrementor(int* const array, int arr_size)
 
 /*
 Homework on constants
-
 1.  Create a separate pull request for these changes;
 2.  Move this file to 1_basic_operations;
 3.  Clean up this file: provide proper console output;
@@ -62,32 +61,31 @@ int main()
 
     const int const_number = 3;
 
+    size_t arr_size = 5;
+
+    int array[] = {1, 19, 22, 66, -3};
+
+    const int const_array[] = {1, 19, 22, 66, -3};
+
     number += 3;
 
     // const_number += 3; error: assignment of read-only variable 'const_number'
 
-    printf("Before modification number = %d\n", number);
+    printf("Integer number before modification = %d\n", number);
 
     modify_integer(&number);
 
     // modify_integer(&const_number); note: expected 'int *' but argument is of type 'const int *
 
-    printf("After modification number = %d\n", number);
+    printf("Integer number after modification = %d\n", number);
 
     printf("const_number = %d\n", const_number);
-
-    int arr_size = 5;
-
-    int array[] = {1, 19, 22, 66, -3};
 
     int array_sum = sum_elements(array, arr_size);
 
     printf("Sum of array elements: %d\n", array_sum);
-
-    const int const_array[] = {1, 19, 22, 66, -3};
     
-    int const_array_sum = sum_elements(const_array, arr_size); 
-    // warning: passing argument 1 of 'sum_elements' discards 'const' qualifier from pointer target type
+    int const_array_sum = sum_elements(const_array, arr_size); // warning: passing argument 1 of 'sum_elements' discards 'const' qualifier from pointer target type
 
     printf("Sum of const array elements: %d\n", const_array_sum);
 
