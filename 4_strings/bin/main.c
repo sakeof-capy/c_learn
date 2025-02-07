@@ -6,9 +6,6 @@ int main()
     char new_string[] = "abrakadabra";
     char string_to_revert[] = "abbra";
 
-    // char symbol = 's';
-    // printf("%c\n", symbol);
-
     char myString[] = {'s', 't', 'r', 'i', 'n', 'g', '\n', '\0'};
     printf("%d\n", myString);
     printf("%d\n", myString[4]); // myString[4] == *(myString + 4)
