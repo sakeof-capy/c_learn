@@ -4,9 +4,10 @@
 int main()
 {
     char new_string[] = "abrakadabra";
-    char string_to_revert[] = "abbra";
-
+    char string_to_revert[] = "qwerty";
     char myString[] = {'s', 't', 'r', 'i', 'n', 'g', '\n', '\0'};
+    const char* const_string = "const_string";
+    
     printf("%d\n", myString);
     printf("%d\n", myString[4]); // myString[4] == *(myString + 4)
     printf("%d\n", *myString); // myString[0] == *(myString + 0)
@@ -29,13 +30,18 @@ int main()
     print_null_terminated_string(new_string);
     printf("\n");
 
-    //////////////////////////////////////////////
-
     print_string_reversed(string_to_revert);
+    printf("\n");
+    
+    print_string_reversed(const_string);
     printf("\n");
 
     revert_string(string_to_revert);
-    printf("%s\n", string_to_revert);
+    printf("Reverted string: %s\n", string_to_revert);
+
+
+    revert_string(string_to_revert);
+    printf("Reverted string: %s\n", string_to_revert);
 
     return 0;
 }
