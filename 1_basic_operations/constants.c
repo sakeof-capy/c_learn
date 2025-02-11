@@ -17,43 +17,35 @@ void modify_integer_perfect_sample(int* const number)
     *number = 300;
 }
 
-int sum_elements(const int* array, int size)
+int sum_elements(const int* array, const size_t arr_size)
 {
     int sum = 0;
-    for (int i = 0; i < size; i++)
+    for (int i = 0; i < arr_size; i++)
     {
         sum = sum + array[i];
     }
-    return sum;
+    const int const_sum = sum;
+    return const_sum;
 }
 
-int sum_elements_perfect_sample(const int* const array, int size)
+int sum_elements_perfect_sample(const int* const array, const size_t arr_size)
 {
     // array +=2; // leads to compile time error (assignment of read-only parameter 'array')
     int sum = 0;
-    for (int i = 0; i < size; i++)
+    for (int i = 0; i < arr_size; i++)
     {
         sum = sum + array[i];
     }
     return sum;
 }
 
-void array_elements_decrementor(int* const array, int arr_size)
+void array_elements_decrementor(int* const array, const size_t arr_size)
 {
     for (int i = 0; i < arr_size; i++)
     {
-        array[i] = array[i] - 1;
+        array[i+=1]; 
     }
 }
-
-/*
-Homework on constants
-1.  Create a separate pull request for these changes;
-2.  Move this file to 1_basic_operations;
-3.  Clean up this file: provide proper console output;
-4.  Use size_t to represent array's size;
-5.  Make sure you undertand everything about consts;
-*/
 
 int main()
 {
@@ -61,7 +53,7 @@ int main()
 
     const int const_number = 3;
 
-    size_t arr_size = 5;
+    const size_t arr_size = 5;
 
     int array[] = {1, 19, 22, 66, -3};
 
@@ -81,11 +73,13 @@ int main()
 
     printf("const_number = %d\n", const_number);
 
-    int array_sum = sum_elements(array, arr_size);
+    const int array_sum = sum_elements(const_array, arr_size);
 
     printf("Sum of array elements: %d\n", array_sum);
     
-    int const_array_sum = sum_elements(const_array, arr_size); // warning: passing argument 1 of 'sum_elements' discards 'const' qualifier from pointer target type
+
+    // warning: passing argument 1 of 'sum_elements' discards 'const' qualifier from pointer target type
+    const int const_array_sum = sum_elements(const_array, arr_size); 
 
     printf("Sum of const array elements: %d\n", const_array_sum);
 
