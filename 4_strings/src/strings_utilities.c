@@ -3,54 +3,54 @@
 #include <string.h>
 #include "../include/strings_utilities.h"
 
-void print_string(const char* string, const size_t arr_size)
+void print_string(const char* const string, const size_t arr_size)
 {
-    for (int i = 0; i < arr_size; i++)
+    for (size_t i = 0; i < arr_size; i++)
     {
         putchar(string[i]); 
     }
 }
 
-int evaluate_null_terminated_string_size(const char* string)
+size_t evaluate_null_terminated_string_size(const char* const string)
 {
-    size_t size = sizeof(string) / sizeof(string[0]);
-    while (string[size-1] == '\0')
+    // size_t size = 0;
+    // for (; string[size] != '\0'; size++);
+    // return size - 1;
+
+    //or (better)
+
+    size_t size = 0;
+    while (string[size] != '\0')
     {
-        return size;
-    } 
-    size++;
+        size++;
+    }
+    return size;
 }
 
-void print_null_terminated_string(const char *string)
+void print_null_terminated_string(const char* const string)
 {
-    const size_t arr_size = strlen(string);
-    for (int i = 0; i < arr_size; i++)
+    const size_t arr_size = evaluate_null_terminated_string_size(string);
+    for (size_t i = 0; i < arr_size; i++)
     {
         putchar(string[i]); 
     }
 }
 
-void print_string_reversed(const char* string)
+void print_string_reversed(const char* const string)
 {
-    const size_t arr_size = strlen(string);
-    for (int i = arr_size; i >= 0; i--)
+    const size_t arr_size = evaluate_null_terminated_string_size(string);
+    for (size_t i = 0; i < arr_size; i++)
     {
-        putchar(string[i]);
+        putchar(string[arr_size - i -1]);
     }
 }
 
-void revert_string(char* string)
+void revert_string(char* const string)
 {
+    const size_t size = evaluate_null_terminated_string_size(string);
     char* left = string;
-    char* right = string;
+    char* right = left + size - 1;
     char element = *string;
-
-    while (*right != '\0')
-    {
-        right++;
-    }
-
-    right--;
 
     while (left < right) 
     {
