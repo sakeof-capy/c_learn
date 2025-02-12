@@ -1,0 +1,5 @@
+String is a null-terminated array of characters .
+Now we are concentrated on ascii chracter table: https://en.wikipedia.org/wiki/ASCII
+Such characters are represented by values of type char. 
+Size of char is 1 byte.
+
