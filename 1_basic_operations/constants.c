@@ -1,5 +1,5 @@
 #include <stdio.h>
-
+#include <stdlib.h>
 /*
 type* - non-const address(pointer) to non-const instance of type
 const type* - non-const address(pointer) to const instance of type
@@ -76,12 +76,34 @@ int main()
     const int array_sum = sum_elements(const_array, arr_size);
 
     printf("Sum of array elements: %d\n", array_sum);
-    
 
     // warning: passing argument 1 of 'sum_elements' discards 'const' qualifier from pointer target type
     const int const_array_sum = sum_elements(const_array, arr_size); 
 
     printf("Sum of const array elements: %d\n", const_array_sum);
+
+    const size_t big_array_size = 2500000000;
+
+    int* const big_array = (int*)malloc(big_array_size * sizeof(int));
+
+    if (big_array == NULL) 
+    {
+        printf("Not enough memory");
+        return -1;
+    }
+
+    const size_t BIG_INDEX = 2147483647;
+
+    for (size_t j = 0; j < BIG_INDEX; j++) 
+    {
+        big_array[j] = 1;
+    }
+
+    big_array[BIG_INDEX + 10] = 100;
+
+    const int big_sum = sum_elements_perfect_sample(big_array, big_array_size);
+
+    printf("big_sum = %d", big_sum);
 
     return 0;
 }
