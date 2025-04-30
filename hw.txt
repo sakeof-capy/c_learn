@@ -1,0 +1,19 @@
+06 XII 2024
+
+1.  Implement analogies to functions 
+z remove an element from both static and dynamic arrays 
+but assume that the array is sorted. (Use binary search).
+
+2.  Understand what "extern" and "const" mean in C 
+and get to know why we needed "extern"
+for declaring the constants 
+(error codes of remove_first_ignore_order() 
+and remove_first_preserve_order() and find_index());
+
+3.  Rewrite the error codes of the functions 
+so that they are organized as enum rather then as a set of constants
+
+4.  Measure time of removing elements from array 
+using functions remove_first_ignore_order() and remove_first_preserve_order()
+in a way similar search_exe.c.
+
